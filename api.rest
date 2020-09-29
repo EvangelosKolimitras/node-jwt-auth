@@ -9,7 +9,7 @@ POST http://localhost:9090/user
 Content-Type: application/json
 
 
-{ "name":"Sofia" }
+{ "name":"3qw" }
 
 ###
 
