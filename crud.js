@@ -1,14 +1,15 @@
+const erroring = require("./utils")
 const uuid = require('uuid')
 let users = [];
+
 async function getUsers(req, res, next) {
 	try {
 		await res
 			.status(200)
 			.json({ users })
-	} catch (error) {
-		console.log(`Error ${error}`);
-	}
+	} catch (erroring) { }
 }
+
 async function getUser(req, res, next) {
 	try {
 		const user = users.find(user => user.id === req.params.id)
@@ -16,10 +17,9 @@ async function getUser(req, res, next) {
 		await res
 			.status(200)
 			.json(user)
-	} catch (error) {
-		console.error(`Error ${error}`)
-	}
+	} catch (erroring) { }
 }
+
 async function createUser(req, res, next) {
 	try {
 		const newUser = {
@@ -29,10 +29,9 @@ async function createUser(req, res, next) {
 		}
 		users.push(newUser)
 		res.status(201).json({ newUser });
-	} catch (error) {
-		console.error(`Error ${error}`)
-	}
+	} catch (erroring) { }
 }
+
 async function deleteUser(req, res, next) {
 	try {
 		const id = await req.params.id;
@@ -40,9 +39,7 @@ async function deleteUser(req, res, next) {
 		const usrs = [...users.slice(0, userId), ...users.slice(userId + 1)]
 		users = usrs;
 		res.json({ usrs });
-	} catch (error) {
-		console.error(`Error ${error}`)
-	}
+	} catch (erroring) { }
 }
 
 async function checkIfUserExistsInDatabase(req, res, next) {
@@ -56,9 +53,7 @@ async function checkIfUserExistsInDatabase(req, res, next) {
 			}
 		}
 		next();
-	} catch (error) {
-		console.error(`Erorr ${error}`)
-	}
+	} catch (erroring) { }
 }
 
 module.exports = { getUser, deleteUser, getUsers, createUser, checkIfUserExistsInDatabase }

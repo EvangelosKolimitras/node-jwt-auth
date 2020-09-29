@@ -6,4 +6,8 @@ async function addTimeStamp(req, res, next) {
 	next();
 }
 
-module.exports = { addTimeStamp }
+function erroring(err) {
+	console.error(`Error ${err}`)
+}
+
+module.exports = { addTimeStamp, error: erroring }
