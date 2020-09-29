@@ -1,0 +1,16 @@
+GET http://localhost:9090/users
+
+###
+
+GET http://localhost:9090/users/d79bc06b-d6f4-4b74-9ace-9373128bb918
+
+###
+POST http://localhost:9090/user
+Content-Type: application/json
+
+
+{ "name":"Sofia" }
+
+###
+
+DELETE http://localhost:9090/users/9977e784-d9ed-4e94-9ba5-ea9c42ba7d60
