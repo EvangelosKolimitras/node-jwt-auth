@@ -1,11 +1,19 @@
-GET http://localhost:3000/users
+@port = 3000
+@hostname = localhost
+@tcp = http
+@api = usesrs
+@url = {{tcp}}://{{hostname}}:{{port}}
 
 ###
 
-GET http://localhost:3000/users/d79bc06b-d6f4-4b74-9ace-9373128bb918
+GET {{url}}/{{api}}
 
 ###
-POST http://localhost:3000/user
+
+GET {{url}}/{{api}}/d79bc06b-d6f4-4b74-9ace-9373128bb918
+
+###
+POST {{url}}/user
 Content-Type: application/json
 
 
@@ -13,4 +21,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/users/afeb9f2a-b405-48fb-9b36-417121a3d1d3
+DELETE {{url}}/{{api}}/afeb9f2a-b405-48fb-9b36-417121a3d1d3
