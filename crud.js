@@ -7,7 +7,7 @@ async function getUsers(req, res, next) {
 		await res
 			.status(200)
 			.json({ users })
-	} catch (erroring) { }
+	} catch (err) { next(err); }
 }
 
 async function getUser(req, res, next) {
@@ -17,7 +17,7 @@ async function getUser(req, res, next) {
 		await res
 			.status(200)
 			.json(user)
-	} catch (erroring) { }
+	} catch (err) { next(err); }
 }
 
 async function createUser(req, res, next) {
@@ -29,7 +29,7 @@ async function createUser(req, res, next) {
 		}
 		users.push(newUser)
 		res.status(201).json({ newUser });
-	} catch (erroring) { }
+	} catch (err) { next(err); }
 }
 
 async function deleteUser(req, res, next) {
@@ -39,7 +39,7 @@ async function deleteUser(req, res, next) {
 		const usrs = [...users.slice(0, userId), ...users.slice(userId + 1)]
 		users = usrs;
 		res.json({ usrs });
-	} catch (erroring) { }
+	} catch (err) { next(err); }
 }
 
 async function checkIfUserExistsInDatabase(req, res, next) {
@@ -53,7 +53,7 @@ async function checkIfUserExistsInDatabase(req, res, next) {
 			}
 		}
 		next();
-	} catch (erroring) { }
+	} catch (err) { next(err); }
 }
 
 module.exports = { getUser, deleteUser, getUsers, createUser, checkIfUserExistsInDatabase }

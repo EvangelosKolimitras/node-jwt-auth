@@ -1,16 +1,16 @@
-GET http://localhost:9090/users
+GET http://localhost:3000/users
 
 ###
 
-GET http://localhost:9090/users/d79bc06b-d6f4-4b74-9ace-9373128bb918
+GET http://localhost:3000/users/d79bc06b-d6f4-4b74-9ace-9373128bb918
 
 ###
-POST http://localhost:9090/user
+POST http://localhost:3000/user
 Content-Type: application/json
 
 
-{ "name":"3qw" }
+{ "name":"Jane" }
 
 ###
 
-DELETE http://localhost:9090/users/afeb9f2a-b405-48fb-9b36-417121a3d1d3
+DELETE http://localhost:3000/users/afeb9f2a-b405-48fb-9b36-417121a3d1d3
