@@ -1,24 +1,24 @@
 @port = 3000
 @hostname = localhost
 @tcp = http
-@api = usesrs
+@api = users
 @url = {{tcp}}://{{hostname}}:{{port}}
-
+@resource_to_be_deleted = 1010723a-d52a-4d29-b6c3-6619bc337561
+@resource_to_be_found = 1010723a-d52a-4d29-b6c3-6619bc337561
 ###
 
 GET {{url}}/{{api}}
 
 ###
 
-GET {{url}}/{{api}}/d79bc06b-d6f4-4b74-9ace-9373128bb918
+GET {{url}}/{{api}}/{{resource_to_be_found}}
 
 ###
 POST {{url}}/user
 Content-Type: application/json
 
-
-{ "name":"Jane" }
+{ "name":"Marios" }
 
 ###
 
-DELETE {{url}}/{{api}}/afeb9f2a-b405-48fb-9b36-417121a3d1d3
+DELETE {{url}}/{{api}}/{{resource_to_be_deleted}}
