@@ -1,3 +1,4 @@
+const Errored = require('./Errored.js');
 
 async function addTimeStamp(req, res, next) {
 	let timeStamp = Date.now();
@@ -6,12 +7,9 @@ async function addTimeStamp(req, res, next) {
 	next();
 }
 
-async function catchAllRouteErrors(req, res, next) {
-	res.status(404).json({
-		status: "failed",
-		type: "Route error",
-		message: `Can not find ${req.originalUrl} on the server. Please check again.`
-	});
+function catchAllRouteErrors(req, res, next) {
+	const err = new Errored(`Can not find ${req.originalUrl} on the server. Please check again.`, 404)
+	next(err)
 }
 
 module.exports = { addTimeStamp, catchAllRouteErrors }
