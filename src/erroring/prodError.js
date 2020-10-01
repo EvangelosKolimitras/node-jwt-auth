@@ -8,7 +8,7 @@ module.exports = (err, res) => {
 	} else {
 		// Stays internaly to the developer for debugging
 		console.error(`ERROR 💣 `, err)
-		res.statusCode(500).json({
+		res.status(500).json({
 			status: "Error",
 			message: "Something went wrong"
 		})
