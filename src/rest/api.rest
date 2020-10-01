@@ -3,8 +3,9 @@
 @tcp = http
 @api = users
 @url = {{tcp}}://{{hostname}}:{{port}}
-@resource_to_be_deleted = 1010723a-d52a-4d29-b6c3-6619bc337561
-@resource_to_be_found = 1010723a-d52a-4d29-b6c3-6619bc337561
+@resource_to_be_deleted = 5f75e546ba073c2c14b6b740
+@resource_to_be_found = 5f75e546ba073c2c14b6b740
+@resource_to_be_updated = 5f75e33b4a16cb07587ffe2c
 ###
 
 GET {{url}}/{{api}}
@@ -17,8 +18,19 @@ GET {{url}}/{{api}}/{{resource_to_be_found}}
 POST {{url}}/user
 Content-Type: application/json
 
-{ "name":"Marios" }
+{ 
+	"name":"Evangelos",
+	"email":"e.kolimitras@outlook.com"
+}
 
+###
+PATCH {{url}}/user/{{resource_to_be_updated}}
+Content-Type: application/json
+
+{ 
+
+	"email": "m.vlioras@outlook.com"
+}
 ###
 
 DELETE {{url}}/{{api}}/{{resource_to_be_deleted}}
