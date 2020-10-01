@@ -1,15 +1,18 @@
 const Errored = require('./Errored.js');
 
-async function addTimeStamp(req, res, next) {
-	let timeStamp = Date.now();
-	req.locals = timeStamp
-	console.log(timeStamp);
+function addTimeStamp(req, res, next) {
+	req.locals = timeStamp = Date.now();
 	next();
 }
 
 function catchAllRouteErrors(req, res, next) {
-	const err = new Errored(`Can not find ${req.originalUrl} on the server. Please check again.`, 404)
-	next(err)
+	next(new Errored(`Can not find ${req.originalUrl} on the server. Please check again.`, 404))
 }
 
-module.exports = { addTimeStamp, catchAllRouteErrors }
+function asyncErrorController(asyncFn) {
+	return function (req, res, next) {
+		asyncFn(req, res, next).catch(next)
+	}
+}
+
+module.exports = { addTimeStamp, catchAllRouteErrors, asyncErrorController }

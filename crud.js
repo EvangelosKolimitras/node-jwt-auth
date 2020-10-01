@@ -1,59 +1,43 @@
-const erroring = require("./utils")
 const uuid = require('uuid')
+const { asyncErrorController } = require("./utils.js")
 let users = [];
 
-async function getUsers(req, res, next) {
-	try {
-		await res
-			.status(200)
-			.json({ users })
-	} catch (err) { next(err); }
-}
-
-async function getUser(req, res, next) {
-	try {
-		const user = users.find(user => user.id === req.params.id)
-		console.log(user);
-		await res
-			.status(200)
-			.json(user)
-	} catch (err) { next(err); }
-}
-
-async function createUser(req, res, next) {
-	try {
-		const newUser = {
-			id: uuid.v4(),
-			name: req.body.name,
-			timeStamp: req.locals
+const getUsers = asyncErrorController(function (req, res, next) {
+	res
+		.status(200)
+		.json({ users })
+})
+const getUser = asyncErrorController(function (req, res, next) {
+	res
+		.status(200)
+		.json(users
+			.find(user => user.id === req.params.id)
+		)
+})
+const createUser = asyncErrorController((req, res, next) => {
+	const newUser = {
+		id: uuid.v4(),
+		name: req.body.name,
+		timeStamp: req.locals
+	}
+	users.push(newUser)
+	res.status(201).json({ newUser });
+})
+const deleteUser = asyncErrorController(function (req, res, next) {
+	const userId = users.findIndex(u => u.id === req.params.id);
+	const usrs = [...users.slice(0, userId), ...users.slice(userId + 1)]
+	users = usrs;
+	res.json({ usrs });
+})
+const checkIfUserExistsInDatabase = asyncErrorController(function (req, res, next) {
+	for (let user of users) {
+		if (user.name === req.body.name) {
+			return res.json({
+				message: 'User already exists'
+			})
 		}
-		users.push(newUser)
-		res.status(201).json({ newUser });
-	} catch (err) { next(err); }
-}
-
-async function deleteUser(req, res, next) {
-	try {
-		const id = await req.params.id;
-		const userId = users.findIndex(u => u.id === id);
-		const usrs = [...users.slice(0, userId), ...users.slice(userId + 1)]
-		users = usrs;
-		res.json({ usrs });
-	} catch (err) { next(err); }
-}
-
-async function checkIfUserExistsInDatabase(req, res, next) {
-	try {
-		const name = await req.body.name;
-		for (let user of users) {
-			if (user.name === name) {
-				return res.json({
-					message: 'User already exists'
-				})
-			}
-		}
-		next();
-	} catch (err) { next(err); }
-}
+	}
+	next();
+})
 
 module.exports = { getUser, deleteUser, getUsers, createUser, checkIfUserExistsInDatabase }
