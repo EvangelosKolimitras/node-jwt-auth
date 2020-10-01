@@ -1,4 +1,4 @@
-const Errored = require('./Errored.js');
+const Errored = require('../erroring/Errored.js');
 
 function addTimeStamp(req, res, next) {
 	req.locals = timeStamp = Date.now();

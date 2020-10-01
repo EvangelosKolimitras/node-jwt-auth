@@ -1,7 +1,7 @@
 
 const routes = require('express').Router();
-const { addTimeStamp } = require('./utils')
-const { getUser, getUsers, deleteUser, createUser, checkIfUserExistsInDatabase } = require('./crud')
+const { addTimeStamp } = require('../utils/utils.js')
+const { getUser, getUsers, deleteUser, createUser, checkIfUserExistsInDatabase } = require('../operations/crud.js')
 
 
 routes

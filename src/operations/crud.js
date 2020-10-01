@@ -1,5 +1,5 @@
 const uuid = require('uuid')
-const { asyncErrorController } = require("./utils.js")
+const { asyncErrorController } = require("../utils/utils.js")
 let users = [];
 
 const getUsers = asyncErrorController(function (req, res, next) {
