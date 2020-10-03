@@ -12,3 +12,4 @@ app
 	.use("*", catchAllRouteErrors)
 	.use(errorController)
 	.listen(port, () => console.log(port))
+console.log('sss');

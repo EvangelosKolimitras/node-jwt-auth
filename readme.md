@@ -3,6 +3,7 @@
 - Express framework
 - Typescript integration
 - Pure MongoDB driver
+- PM2 multiclustering process management integrated
 
 ## Instructions
 
