@@ -1,4 +1,4 @@
-module.exports = (err, res) => {
+export default (err, res) => {
 	// Goes to client
 	if (err.isOperational) {
 		res.statusCode(err.statusCode).json({

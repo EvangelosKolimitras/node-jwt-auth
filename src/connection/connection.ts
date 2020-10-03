@@ -1,5 +1,7 @@
-const { MongoClient, ObjectId } = require("mongodb")
-require("dotenv").config("./.env")
+import { MongoClient, ObjectId } from "mongodb"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 function createUrlString() {
 	return process.env.MONGODB_URL
@@ -19,4 +21,4 @@ async function connection() {
 	}
 }
 
-module.exports = connection
+export default connection

@@ -25,7 +25,7 @@ Content-Type: application/json
 
 { 
 	"name":"Evangelos",
-	"email": "e.kolimitras@hotmail.gr"
+	"email": "e.kolimitras@outlook.com"
 }
 ###
 DELETE {{url}}/{{api}}/delete/user/{{resource_to_be_deleted}}

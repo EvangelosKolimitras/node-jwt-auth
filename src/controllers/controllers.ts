@@ -1,7 +1,7 @@
-const devError = require('../erroring/devError');
-const prodError = require('../erroring/prodError')
+import devError from '../erroring/devError'
+import prodError from '../erroring/prodError'
 
-module.exports = (err, req, res, next) => {
+export default (err, req, res, next) => {
 
 	err.statusCode = err.statusCode || 500; /* Default to 500 if code is not defined */
 	err.status = err.status || "error";
