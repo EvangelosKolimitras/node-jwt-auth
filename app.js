@@ -3,6 +3,6 @@ const { app, express, routes, catchAllRouteErrors, errorController, port } = req
 app
 	.use(express.json())
 	.use(routes)
-	.all("*", catchAllRouteErrors)
+	.use("*", catchAllRouteErrors)
 	.use(errorController)
 	.listen(port, () => console.log(port))

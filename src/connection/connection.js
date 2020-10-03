@@ -1,20 +1,22 @@
-const mongoose = require('mongoose')
+const { MongoClient, ObjectId } = require("mongodb")
 require("dotenv").config("./.env")
 
-function connect() {
-	const DB = "mongodb+srv://_username:_password@rest-db.npv4z.mongodb.net/_database"
+function createUrlString() {
+	return process.env.MONGODB_URL
 		.replace("_username", process.env.MONGODB_USERNAME)
 		.replace("_password", process.env.MONGODB_PASSWORD)
 		.replace("_database", process.env.MONGODB_DATABASE)
-		.replace("_options", process.env.MONGODB_OPTIONS)
-	return mongoose
-		.connect(DB,
-			{
-				useNewUrlParser: true,
-				useUnifiedTopology: true,
-				useFindAndModify: false,
-			}
-		)
-		.then(() => console.log("DB CONNECTED"))
 }
-module.exports = connect
+
+async function connection() {
+	const server = new MongoClient(createUrlString(), { useUnifiedTopology: true })
+	const client = await server.connect();
+	const database = client.db("rest-db")
+	const collection = database.collection("users")
+	return {
+		collection,
+		ObjectId
+	}
+}
+
+module.exports = connection

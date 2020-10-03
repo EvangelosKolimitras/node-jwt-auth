@@ -6,7 +6,6 @@ const { catchAllRouteErrors } = require('./utils/utils.js')
 const errorController = require('./controllers/controllers.js');
 
 // Mongo connection
-require('./connection/connection.js')()
 
 module.exports = {
 	app,
