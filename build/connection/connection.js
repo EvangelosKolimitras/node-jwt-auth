@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createUrlString = void 0;
 const mongodb_1 = require("mongodb");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -21,16 +22,14 @@ function createUrlString() {
         .replace("_password", process.env.MONGODB_PASSWORD)
         .replace("_database", process.env.MONGODB_DATABASE);
 }
+exports.createUrlString = createUrlString;
 function connection() {
     return __awaiter(this, void 0, void 0, function* () {
         const server = new mongodb_1.MongoClient(createUrlString(), { useUnifiedTopology: true });
         const client = yield server.connect();
         const database = client.db("rest-db");
         const collection = database.collection("users");
-        return {
-            collection,
-            ObjectId: mongodb_1.ObjectId
-        };
+        return { collection };
     });
 }
 exports.default = connection;

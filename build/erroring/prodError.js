@@ -10,7 +10,6 @@ exports.default = (err, res) => {
     }
     else {
         // Stays internaly to the developer for debugging
-        console.error(`ERROR 💣 `, err);
         res.status(500).json({
             status: "Error",
             message: "Something went wrong"

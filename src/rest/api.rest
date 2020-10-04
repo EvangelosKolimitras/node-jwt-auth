@@ -8,24 +8,32 @@
 @resource_to_be_updated = 5f77a612e9dd8e34d8b7d6ae
 
 ###
+
 GET {{url}}/{{api}}
+
 ###
 GET {{url}}/{{api}}/{{resource_to_be_found}}
+
 ###
+
 POST {{url}}/{{api}}/create/user
 Content-Type: application/json
 
 { 
-	"name":"Brian",
-	"email":"b.occoner@outlook.com"
+"name":"Brian",
+"email":"b.occoner@outlook.com"
 }
+
 ###
+
 PATCH {{url}}/{{api}}/update/user/{{resource_to_be_updated}}
 Content-Type: application/json
 
 { 
-	"name":"Evangelos",
-	"email": "e.kolimitras@outlook.com"
+"name":"Evangelos",
+"email": "e.kolimitras@outlook.com"
 }
+
 ###
+
 DELETE {{url}}/{{api}}/delete/user/{{resource_to_be_deleted}}

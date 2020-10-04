@@ -1,7 +1,7 @@
 export default class Errored extends Error {
 	statuCode: number;
 	status: string;
-	isOperrational: boolean;
+	isOperrational?: boolean;
 	constructor(message: string, statusCode: number) {
 		super(message);
 		this.statuCode = statusCode;

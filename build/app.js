@@ -14,5 +14,5 @@ app
     .use(routes_1.default)
     .use("*", utils_1.catchAllRouteErrors)
     .use(controllers_1.default)
-    .listen(port, () => console.log(port));
+    .listen(port);
 //# sourceMappingURL=app.js.map

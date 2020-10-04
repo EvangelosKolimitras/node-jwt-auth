@@ -1,9 +1,9 @@
-import { MongoClient, ObjectId } from "mongodb"
+import { DbCreateOptions, MongoClient, ObjectId } from "mongodb"
 import dotenv from "dotenv"
 
 dotenv.config()
 
-function createUrlString() {
+export function createUrlString(): string {
 	return process.env.MONGODB_URL
 		.replace("_username", process.env.MONGODB_USERNAME)
 		.replace("_password", process.env.MONGODB_PASSWORD)
@@ -11,14 +11,11 @@ function createUrlString() {
 }
 
 async function connection() {
-	const server = new MongoClient(createUrlString(), { useUnifiedTopology: true })
+	const server: MongoClient = new MongoClient(createUrlString(), { useUnifiedTopology: true })
 	const client = await server.connect();
 	const database = client.db("rest-db")
 	const collection = database.collection("users")
-	return {
-		collection,
-		ObjectId
-	}
+	return { collection }
 }
 
 export default connection

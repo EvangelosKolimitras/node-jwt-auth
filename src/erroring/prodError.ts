@@ -1,4 +1,4 @@
-export default (err, res) => {
+export default (err: { isOperational: any; statusCode: any; status: any; message: any }, res: { statusCode: (arg0: any) => { (): any; new(): any; json: { (arg0: { status: any; message: any }): void; new(): any } }; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { status: string; message: string }): void; new(): any } } }) => {
 	// Goes to client
 	if (err.isOperational) {
 		res.statusCode(err.statusCode).json({
@@ -7,7 +7,6 @@ export default (err, res) => {
 		})
 	} else {
 		// Stays internaly to the developer for debugging
-		console.error(`ERROR 💣 `, err)
 		res.status(500).json({
 			status: "Error",
 			message: "Something went wrong"

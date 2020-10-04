@@ -1,25 +1,23 @@
 import { asyncErrorController } from "../utils/utils"
 import connection from "../connection/connection"
-import { InsertOneWriteOpResult, ObjectId } from "mongodb"
+import { ObjectId, InsertOneWriteOpResult } from "mongodb"
+import { Request, Response } from "express"
 
 export const getUsers = asyncErrorController(
-	async (_req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { users: any[] }): void; new(): any } } }) => {
+	async (req: Request, res: Response) => {
 		const { collection } = await connection()
-		try {
-			res.status(200).json({
-				users: await collection
-					.find({})
-					.toArray()
-			})
-		} catch (error) {
-			console.error(error)
-		}
+		res.status(200).json({
+			users: await collection
+				.find({})
+				.toArray()
+		})
+
 	}
 )
 
 export const getUser = asyncErrorController(
-	async (req: { params: { id: string | number | ObjectId } }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { users: any }): void; new(): any } } }) => {
-		const { collection, ObjectId } = await connection()
+	async (req: Request, res: Response) => {
+		const { collection } = await connection()
 		const query = { _id: new ObjectId(req.params.id) };
 		try {
 			res
@@ -28,13 +26,13 @@ export const getUser = asyncErrorController(
 					{ users: await collection.findOne(query) }
 				)
 		} catch (error) {
-			console.error(error)
+			res.status(500).json(error)
 		}
 	}
 )
 
 export const createUser = asyncErrorController(
-	async (req: { body: any }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { user: InsertOneWriteOpResult<any> }): void; new(): any } } }) => {
+	async (req: Request, res: Response) => {
 		const { collection } = await connection()
 		try {
 			res
@@ -43,14 +41,14 @@ export const createUser = asyncErrorController(
 					user: await collection.insertOne(req.body)
 				})
 		} catch (error) {
-			console.error(error)
+			res.status(500).json(error)
 		}
 	}
 )
 
 export const updateUser = asyncErrorController(
-	async (req, res) => {
-		const { collection, ObjectId } = await connection()
+	async (req: Request, res: Response) => {
+		const { collection } = await connection()
 		res.status(201).json({
 			user: await collection
 				.updateOne(
@@ -63,8 +61,8 @@ export const updateUser = asyncErrorController(
 )
 
 export const deleteUser = asyncErrorController(
-	async (req, res) => {
-		const { collection, ObjectId } = await connection()
+	async (req: Request, res: Response) => {
+		const { collection } = await connection()
 		try {
 			res
 				.status(200)
@@ -72,7 +70,7 @@ export const deleteUser = asyncErrorController(
 					user: await collection.deleteOne({ _id: new ObjectId(req.params.id) })
 				})
 		} catch (error) {
-			console.error(error)
+			res.status(500).json(error)
 		}
 	}
 )

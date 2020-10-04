@@ -10,9 +10,7 @@ function catchAllRouteErrors(req, res, next) {
 }
 exports.catchAllRouteErrors = catchAllRouteErrors;
 function asyncErrorController(asyncFn) {
-    return function (req, res, next) {
-        asyncFn(req, res, next).catch(next);
-    };
+    return (req, res, next) => asyncFn(req, res, next).catch(next);
 }
 exports.asyncErrorController = asyncErrorController;
 //# sourceMappingURL=utils.js.map

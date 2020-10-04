@@ -15,29 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.updateUser = exports.createUser = exports.getUser = exports.getUsers = void 0;
 const utils_1 = require("../utils/utils");
 const connection_1 = __importDefault(require("../connection/connection"));
-exports.getUsers = utils_1.asyncErrorController((_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const mongodb_1 = require("mongodb");
+exports.getUsers = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { collection } = yield connection_1.default();
-    try {
-        res.status(200).json({
-            users: yield collection
-                .find({})
-                .toArray()
-        });
-    }
-    catch (error) {
-        console.error(error);
-    }
+    res.status(200).json({
+        users: yield collection
+            .find({})
+            .toArray()
+    });
 }));
 exports.getUser = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { collection, ObjectId } = yield connection_1.default();
-    const query = { _id: new ObjectId(req.params.id) };
+    const { collection } = yield connection_1.default();
+    const query = { _id: new mongodb_1.ObjectId(req.params.id) };
     try {
         res
             .status(200)
             .json({ users: yield collection.findOne(query) });
     }
     catch (error) {
-        console.error(error);
+        res.status(500).json(error);
     }
 }));
 exports.createUser = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -50,27 +46,27 @@ exports.createUser = utils_1.asyncErrorController((req, res) => __awaiter(void 0
         });
     }
     catch (error) {
-        console.error(error);
+        res.status(500).json(error);
     }
 }));
 exports.updateUser = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { collection, ObjectId } = yield connection_1.default();
+    const { collection } = yield connection_1.default();
     res.status(201).json({
         user: yield collection
-            .updateOne({ _id: new ObjectId(req.params.id) }, { $set: Object.assign({}, req.body) }, { upsert: true })
+            .updateOne({ _id: new mongodb_1.ObjectId(req.params.id) }, { $set: Object.assign({}, req.body) }, { upsert: true })
     });
 }));
 exports.deleteUser = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { collection, ObjectId } = yield connection_1.default();
+    const { collection } = yield connection_1.default();
     try {
         res
             .status(200)
             .json({
-            user: yield collection.deleteOne({ _id: new ObjectId(req.params.id) })
+            user: yield collection.deleteOne({ _id: new mongodb_1.ObjectId(req.params.id) })
         });
     }
     catch (error) {
-        console.error(error);
+        res.status(500).json(error);
     }
 }));
 //# sourceMappingURL=crud.js.map

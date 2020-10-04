@@ -5,7 +5,5 @@ export function catchAllRouteErrors(req: { originalUrl: any }, res: any, next: (
 }
 
 export function asyncErrorController(asyncFn) {
-	return function (req, res, next) {
-		asyncFn(req, res, next).catch(next)
-	}
+	return (req: any, res: any, next: any) => asyncFn(req, res, next).catch(next)
 }

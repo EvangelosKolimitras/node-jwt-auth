@@ -1,4 +1,3 @@
-
 import routes from 'express'
 import { getUsers, getUser, createUser, updateUser, deleteUser } from '../operations/crud'
 
