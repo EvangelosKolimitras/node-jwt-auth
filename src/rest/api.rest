@@ -20,8 +20,8 @@ POST {{url}}/{{api}}/create/user
 Content-Type: application/json
 
 { 
-"name":"Brian",
-"email":"b.occoner@outlook.com"
+"name":"Sofia",
+"email":"s.landerson@outlook.com"
 }
 
 ###
