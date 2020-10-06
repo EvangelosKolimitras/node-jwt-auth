@@ -18,10 +18,9 @@ const connection_1 = __importDefault(require("../connection/connection"));
 const mongodb_1 = require("mongodb");
 exports.getUsers = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { collection } = yield connection_1.default();
+    const pipeline = [{ '$match': {} }];
     res.status(200).json({
-        users: yield collection
-            .find({})
-            .toArray()
+        users: yield collection.aggregate(pipeline).toArray()
     });
 }));
 exports.getUser = utils_1.asyncErrorController((req, res) => __awaiter(void 0, void 0, void 0, function* () {

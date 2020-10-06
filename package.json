@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --watch",
     "build:prod": "tsc",
     "start": "nodemon ./build/app.js",
     "start:prod": "node ./build/app.js",

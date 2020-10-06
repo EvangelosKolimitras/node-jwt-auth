@@ -6,12 +6,11 @@ import { Request, Response } from "express"
 export const getUsers = asyncErrorController(
 	async (req: Request, res: Response) => {
 		const { collection } = await connection()
-		res.status(200).json({
-			users: await collection
-				.find({})
-				.toArray()
-		})
+		const pipeline = [{ '$match': {} }]
 
+		res.status(200).json({
+			users: await collection.aggregate(pipeline).toArray()
+		})
 	}
 )
 
