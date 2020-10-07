@@ -1,75 +1,68 @@
 import { asyncErrorController } from "../utils/utils"
 import connection from "../connection/connection"
-import { ObjectId, InsertOneWriteOpResult } from "mongodb"
+import { ObjectId } from "mongodb"
 import { Request, Response } from "express"
 
-export const getUsers = asyncErrorController(
-	async (req: Request, res: Response) => {
-		const { collection } = await connection()
-		const pipeline = [{ '$match': {} }]
+export default class Resource {
 
-		res.status(200).json({
-			users: await collection.aggregate(pipeline).toArray()
-		})
-	}
-)
+	public static getUsers = asyncErrorController(
+		async (req: Request, res: Response) => {
+			const { collection } = await connection()
+			res.status(200).json({
+				users: await collection.aggregate([{ '$match': {} }]).toArray()
+			})
+		}
+	)
 
-export const getUser = asyncErrorController(
-	async (req: Request, res: Response) => {
-		const { collection } = await connection()
-		const query = { _id: new ObjectId(req.params.id) };
-		try {
+	public static getUser = asyncErrorController(
+		async (req: Request, res: Response) => {
+			const { collection } = await connection()
+			const query = { _id: new ObjectId(req.params.id) };
 			res
 				.status(200)
 				.json(
 					{ users: await collection.findOne(query) }
 				)
-		} catch (error) {
-			res.status(500).json(error)
 		}
-	}
-)
+	)
 
-export const createUser = asyncErrorController(
-	async (req: Request, res: Response) => {
-		const { collection } = await connection()
-		try {
+	public static createUser = asyncErrorController(
+		async (req: Request, res: Response) => {
+			const { collection } = await connection()
 			res
 				.status(201)
 				.json({
 					user: await collection.insertOne(req.body)
 				})
-		} catch (error) {
-			res.status(500).json(error)
 		}
-	}
-)
+	)
 
-export const updateUser = asyncErrorController(
-	async (req: Request, res: Response) => {
-		const { collection } = await connection()
-		res.status(201).json({
-			user: await collection
-				.updateOne(
-					{ _id: new ObjectId(req.params.id) },
-					{ $set: { ...req.body } },
-					{ upsert: true }
-				)
-		})
-	}
-)
-
-export const deleteUser = asyncErrorController(
-	async (req: Request, res: Response) => {
-		const { collection } = await connection()
-		try {
-			res
-				.status(200)
-				.json({
-					user: await collection.deleteOne({ _id: new ObjectId(req.params.id) })
-				})
-		} catch (error) {
-			res.status(500).json(error)
+	public static updateUser = asyncErrorController(
+		async (req: Request, res: Response) => {
+			const { collection } = await connection()
+			res.status(201).json({
+				user: await collection
+					.updateOne(
+						{ _id: new ObjectId(req.params.id) },
+						{ $set: { ...req.body } },
+						{ upsert: true }
+					)
+			})
 		}
-	}
-)
+	)
+
+	public static deleteUser = asyncErrorController(
+		async (req: Request, res: Response) => {
+			const { collection } = await connection()
+			try {
+				res
+					.status(200)
+					.json({
+						user: await collection.deleteOne({ _id: new ObjectId(req.params.id) })
+					})
+			} catch (error) {
+				res.status(500).json(error)
+			}
+		}
+	)
+}

@@ -4,10 +4,10 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export function createUrlString(): string {
-	return process.env.MONGODB_URL
-		.replace("_username", process.env.MONGODB_USERNAME)
-		.replace("_password", process.env.MONGODB_PASSWORD)
-		.replace("_database", process.env.MONGODB_DATABASE)
+	return process.env.MONGODB_URL!
+		.replace("_username", process.env.MONGODB_USERNAME!)
+		.replace("_password", process.env.MONGODB_PASSWORD!)
+		.replace("_database", process.env.MONGODB_DATABASE!)
 }
 
 export async function connectToClient() {

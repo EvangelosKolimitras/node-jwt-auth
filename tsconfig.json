@@ -6,13 +6,21 @@
     "declaration": false,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "./build"
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "lib": [
+      "es6"
+    ],
+    "allowJs": false,
+    "noImplicitAny": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules",
     ".vscode"
   ],
-  "lib": [
-    "es2015"
+  "include": [
+    "src"
   ]
 }

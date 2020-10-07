@@ -1,10 +1,11 @@
 import routes from 'express'
-import { getUsers, getUser, createUser, updateUser, deleteUser } from '../operations/crud'
+import Resource from '../operations/crud'
 
 export default routes
 	.Router()
-	.get('/users/:id', getUser)
-	.get('/users', getUsers)
-	.post('/users/create/user', createUser)
-	.patch('/users/update/user/:id', updateUser)
-	.delete("/users/delete/user/:id", deleteUser)
+	.get('/users/:id', Resource.getUser)
+	.get('/users', Resource.getUsers)
+	.post('/users/create/user', Resource.createUser)
+	.patch('/users/update/user/:id', Resource.updateUser)
+	.delete("/users/delete/user/:id", Resource.deleteUser)
+
