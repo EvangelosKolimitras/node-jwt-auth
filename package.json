@@ -11,9 +11,7 @@
     "pm2": "pm2 start ./build/app.js -i max",
     "test": "jest",
     "test:watch": "jest --coverage --watch --detectOpenHandles",
-    "build:watch": "onchange 'src/**/*.ts' -- npm run build",
-    "view:coverage": "serve coverage/lcov-report",
-    "clean": "rm -rf coverage src/**/*.js ./build/**/*.map ./build/*.map"
+    "clean": "rm -rf coverage src/**/*.js ./build/**/*.map ./build/*.map node_modules"
   },
   "author": "",
   "license": "ISC",
@@ -30,8 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.2",
     "nodemon": "^2.0.4",
-    "onchange": "^7.0.2",
-    "pm2": "^4.5.0",
+    "pm2": "4.5.0",
     "serve": "^11.3.2",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",

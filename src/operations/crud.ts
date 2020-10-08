@@ -1,4 +1,4 @@
-import { asyncErrorController } from "../utils/utils"
+import { asyncErrorController, getQueryStringIDs } from "../utils/utils"
 import connection from "../connection/connection"
 import { ObjectId } from "mongodb"
 import { Request, Response } from "express"
@@ -54,15 +54,26 @@ export default class Resource {
 	public static deleteUser = asyncErrorController(
 		async (req: Request, res: Response) => {
 			const { collection } = await connection()
-			try {
-				res
-					.status(200)
-					.json({
-						user: await collection.deleteOne({ _id: new ObjectId(req.params.id) })
-					})
-			} catch (error) {
-				res.status(500).json(error)
-			}
+			res
+				.status(200)
+				.json({
+					user: await collection.deleteOne({ _id: new ObjectId(req.params.id) })
+				})
+		}
+	)
+	public static deleteUsers = asyncErrorController(
+		async (req: Request, res: Response) => {
+			const { collection } = await connection()
+			res
+				.status(200)
+				.json({
+					user: await collection.deleteMany(
+						{
+							_id: { "$in": await getQueryStringIDs((req.query.users as string).split(',')) }
+						}
+					)
+				})
 		}
 	)
 }
+
