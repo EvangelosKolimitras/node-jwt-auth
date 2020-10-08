@@ -1,5 +1,4 @@
-import { asyncErrorController, getQueryStringIDs } from "../utils/utils"
-import connection from "../connection/connection"
+import { asyncErrorController, getQueryStringIDs, collection } from "../utils/utils"
 import { ObjectId } from "mongodb"
 import { Request, Response } from "express"
 
@@ -7,41 +6,38 @@ export default class Resource {
 
 	public static getUsers = asyncErrorController(
 		async (req: Request, res: Response) => {
-			const { collection } = await connection()
 			res.status(200).json({
-				users: await collection.aggregate([{ '$match': {} }]).toArray()
+				users: await (await collection()).aggregate([{ '$match': {} }]).toArray()
 			})
 		}
 	)
 
 	public static getUser = asyncErrorController(
 		async (req: Request, res: Response) => {
-			const { collection } = await connection()
 			const query = { _id: new ObjectId(req.params.id) };
 			res
 				.status(200)
 				.json(
-					{ users: await collection.findOne(query) }
+					{ users: await (await collection()).findOne(query) }
 				)
 		}
 	)
 
 	public static createUser = asyncErrorController(
 		async (req: Request, res: Response) => {
-			const { collection } = await connection()
+			const document = res.locals.doc
 			res
 				.status(201)
 				.json({
-					user: await collection.insertOne(req.body)
+					user: await (await collection()).insertOne(document)
 				})
 		}
 	)
 
 	public static updateUser = asyncErrorController(
 		async (req: Request, res: Response) => {
-			const { collection } = await connection()
 			res.status(201).json({
-				user: await collection
+				user: await (await collection())
 					.updateOne(
 						{ _id: new ObjectId(req.params.id) },
 						{ $set: { ...req.body } },
@@ -53,21 +49,19 @@ export default class Resource {
 
 	public static deleteUser = asyncErrorController(
 		async (req: Request, res: Response) => {
-			const { collection } = await connection()
 			res
 				.status(200)
 				.json({
-					user: await collection.deleteOne({ _id: new ObjectId(req.params.id) })
+					user: await (await collection()).deleteOne({ _id: new ObjectId(req.params.id) })
 				})
 		}
 	)
 	public static deleteUsers = asyncErrorController(
 		async (req: Request, res: Response) => {
-			const { collection } = await connection()
 			res
 				.status(200)
 				.json({
-					user: await collection.deleteMany(
+					user: await (await collection()).deleteMany(
 						{
 							_id: { "$in": await getQueryStringIDs((req.query.users as string).split(',')) }
 						}

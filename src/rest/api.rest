@@ -4,7 +4,8 @@
 @api = users
 @url = {{tcp}}://{{hostname}}:{{port}}
 @resource_to_be_deleted = 5f786fd767370c1e8c4f1fd1
-@resources_to_be_deleted = /* Comma seperated ids as query string */
+/* Comma seperated ids as query string */
+@resources_to_be_deleted = 5f7f6b21e46645580885a591,5f7f68560c7fb53a60aedcd1,5f7f68841e672951d8b4dd7e,5f7f6924579f2f488c311025,5f7f68d3d863535038f20ddd
 @resource_to_be_found = 5f77a612e9dd8e34d8b7d6ae
 @resource_to_be_updated = 5f77a5069b518b2d40be8eb2
 
@@ -22,7 +23,7 @@ Content-Type: application/json
 
 { 
 	"name":"angelos",
-	"email":"a.kolimitras@gmail.com5",
+	"email":"a.kolimitras@gmail.com34231",
 	"password":"angelos123"
 }
 

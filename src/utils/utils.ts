@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import Errored from '../erroring/Errored'
-
+import connection from '../connection/connection'
 export function catchAllRouteErrors(req: { originalUrl: any }, res: any, next: (arg0: Errored) => void) {
 	next(new Errored(`Can not find ${req.originalUrl} on the server. Please check again.`, 404))
 }
@@ -12,4 +12,9 @@ export function asyncErrorController(asyncFn: Function) {
 export async function getQueryStringIDs(query: string[], ids: ObjectId[] = []) {
 	query.forEach((id: string) => ids.push(new ObjectId(id)))
 	return ids
+}
+
+export async function collection() {
+	const { collection } = (await connection());
+	return collection
 }
