@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 import Errored from '../erroring/Errored'
 import connection from '../connection/connection'
+
 export function catchAllRouteErrors(req: { originalUrl: any }, res: any, next: (arg0: Errored) => void) {
 	next(new Errored(`Can not find ${req.originalUrl} on the server. Please check again.`, 404))
 }
